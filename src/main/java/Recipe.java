@@ -49,9 +49,8 @@ public class Recipe {
 
     public void printIgredients() {
         int i = 0;
-        while (i < recipeLines.size()) {
-            System.out.println(i + ": " + recipeLines.get(i));
-            i++;
+        for (String line: ingredients){
+            System.out.println(line);
         }
     }
 
@@ -64,4 +63,5 @@ public class Recipe {
         this.ingredients.add(ingredient);
 
     }
+    
 }
