@@ -16,43 +16,31 @@ public class RecipesManager {
 
     public RecipesManager() {
         recipes = new ArrayList<>();
-
-    }
-
-    public void addRecipe(String recipeAssString) {
-        Recipe recipe = new Recipe();
-        String[] lines = recipeAssString.split("\n");
-
-        for (int i = 0; i < 2; i++) {
-            recipe.setName(lines[0]);
-            recipe.setCookingTime(Integer.valueOf(lines[1]));
-        }
-        for (int i = 2; i < lines.length; i++) {
-            recipe.addIngredients(lines[i]);
-        }
-        recipes.add(recipe);
-
     }
 
     public void printRecipes() {
         for (Recipe recipe : recipes) {
-            //System.out.println(recipe.toString());
-            recipe.printIgredients();
+            System.out.println(recipe.toString());
+
         }
     }
 
-    public String searchByName(String word) {
+    public void searchByName(String word) {
         for (Recipe recipe : recipes) {
             if (recipe.getName().contains(word)) {
-                return recipe.toString();
+                System.out.println(recipe.toString());
             }
         }
-        return null;
+    }
+     public void searchByTime(int time) {
+        for (Recipe recipe : recipes) {
+            if (recipe.getCookingTime() <= time) {
+                System.out.println(recipe.toString());
+            }
+        }
     }
 
     public void addRecipeFromList(ArrayList<String> recipesAssList) {
-        int begin = 0;
-        int end = recipesAssList.size() - 1;
         Recipe recipe = new Recipe();
         for (String line : recipesAssList) {
             if (line.isEmpty()) {
@@ -61,9 +49,24 @@ public class RecipesManager {
                 continue;
             }
             recipe.addIngredients(line);
-            
+
         }
         recipes.add(recipe);
+    }
+    
+    public void setNameAndTime(){
+        for (Recipe recipe: recipes){
+            recipe.setCookingTime();
+            recipe.setName();
+        }
+    }
+    
+    public void searchByIngredient(String ingredient) {
+        for (Recipe recipe : recipes) {
+            if (recipe.getIngredients().contains(ingredient)) {
+                System.out.println(recipe.toString());
+            }
+        }
     }
 
 }

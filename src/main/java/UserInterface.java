@@ -1,19 +1,18 @@
 
+import java.io.File;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
 
-    private Scanner scanner;
+    private Scanner reader;
     private RecipesManager manager;
-    private String recipes;
     private ArrayList<String> recipesAssList;
 
     public UserInterface(Scanner scanner, RecipesManager manager) {
-        this.scanner = scanner;
+        this.reader = scanner;
         this.manager = manager;
-        this.recipes = "";
         this.recipesAssList = new ArrayList<>();
 
     }
@@ -21,78 +20,53 @@ public class UserInterface {
     public void start() {
         readFileAssList();
         manager.addRecipeFromList(recipesAssList);
-        //addRecipeToManager();
+        manager.setNameAndTime();
         System.out.println("Commands: ");
         System.out.println("list - list the recipes");
         System.out.println("stop - stops the program");
         System.out.println("find name - searches recipes by name");
+        System.out.println("find cooking time - searches recipes by cooking timee");
         System.out.println("");
         while (true) {
 
             System.out.print("Enter command: ");
-            String command = scanner.nextLine();
+            String command = reader.nextLine();
             System.out.println("");
 
             if (command.equals("Stop")) {
                 break;
-            }
-            if (command.equals("list")) {
+            } else if (command.equals("list")) {
                 System.out.println("Recipes: ");
                 manager.printRecipes();
-//                System.out.println("");
-//                   for (String line: recipesAssList){
-//                       System.out.println(line);
-//                   }
-
-            }
-            if (command.equals("find name")) {
+            } else if (command.equals("find name")) {
                 searchByName();
-                
-
+            } else if (command.equals("find cooking time")) {
+                searchByTime();
+            } else if (command.equals("find ingredient")) {
+                searchByIngredient();
+            } else {
+                break;
             }
-        }
-    }
-
-    //reading file and save ass string
-    public void readFile() {
-        System.out.print("File to read: ");
-        String fileToRead = scanner.nextLine();
-        System.out.println("");
-
-        try (Scanner reader = new Scanner(Paths.get(fileToRead))) {
-            while (reader.hasNextLine()) {
-                recipes = recipes + reader.nextLine() + "\n";
-            }
-
-        } catch (Exception e) {
-            System.out.println("Error!");
-        }
-    }
-
-    public void addRecipeToManager() {
-        String[] singleRecipe = recipes.split("\n\n");
-        for (int i = 0; i < singleRecipe.length; i++) {
-            manager.addRecipe(singleRecipe[i]);
         }
     }
 
     public void searchByName() {
         System.out.print("Searched word: ");
-        String word = scanner.nextLine();
+        String word = reader.nextLine();
         System.out.println("");
         System.out.println("Recipes: ");
-        System.out.println(manager.searchByName(word));
+        manager.searchByName(word);
         System.out.println("");
     }
 
     public void readFileAssList() {
         System.out.print("File to read: ");
-        String fileToRead = scanner.nextLine();
+        String fileToRead = reader.nextLine();
         System.out.println("");
 
-        try (Scanner reader = new Scanner(Paths.get(fileToRead))) {
-            while (reader.hasNextLine()) {
-                recipesAssList.add(reader.nextLine());
+        try (Scanner scanner = new Scanner(Paths.get(fileToRead))) {
+            while (scanner.hasNextLine()) {
+                recipesAssList.add(scanner.nextLine());
             }
 
         } catch (Exception e) {
@@ -100,4 +74,22 @@ public class UserInterface {
         }
     }
 
+    public void searchByTime() {
+        System.out.print("Max cooking time: ");
+        int time = Integer.valueOf(reader.nextLine());
+        System.out.println("");
+        System.out.println("Recipes: ");
+        manager.searchByTime(time);
+        System.out.println("");
+
+    }
+    public void searchByIngredient() {
+        System.out.print("Ingredient: ");
+        String ingredient = reader.nextLine();
+        System.out.println("");
+        System.out.println("Recipes: ");
+        manager.searchByIngredient(ingredient);
+        System.out.println("");
+
+    }
 }

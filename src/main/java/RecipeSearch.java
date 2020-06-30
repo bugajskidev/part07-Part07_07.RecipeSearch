@@ -1,6 +1,4 @@
-
 import java.util.Scanner;
-
 
 public class RecipeSearch {
 
@@ -8,10 +6,10 @@ public class RecipeSearch {
         Scanner scanner = new Scanner(System.in);
         RecipesManager manager = new RecipesManager();
         
-        UserInterface ui = new UserInterface(scanner, manager);
-        
-        ui.start();
-        
 
+        UserInterface ui = new UserInterface(scanner, manager);
+
+        ui.start();
     }
+
 }

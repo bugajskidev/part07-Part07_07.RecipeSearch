@@ -22,3 +22,8 @@ carrot
 cucumber
 avocado
 wasabi
+
+frytki
+15
+ziemniaki
+olej

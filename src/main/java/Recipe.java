@@ -31,16 +31,18 @@ public class Recipe {
         return cookingTime;
     }
 
-    public ArrayList<String> getIngrredients() {
+    public ArrayList<String> getIngredients() {
         return ingredients;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName() {
+        this.name = ingredients.get(0);
+        ingredients.remove(0);
     }
 
-    public void setCookingTime(int cookingTime) {
-        this.cookingTime = cookingTime;
+    public void setCookingTime() {
+        this.cookingTime = Integer.valueOf(ingredients.get(1));
+        ingredients.remove(1);
     }
 
     public void addLines(String line) {
@@ -56,7 +58,7 @@ public class Recipe {
 
     @Override
     public String toString() {
-        return this.name + ", coocking time: " + cookingTime;
+        return this.name + ", cooking time: " + cookingTime;
     }
 
     public void addIngredients(String ingredient) {
